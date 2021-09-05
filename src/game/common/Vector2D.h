@@ -12,7 +12,7 @@ namespace Game {
         };
 
         using Size = Vector2D<size_t>;
-        using Index = Vector2D<size_t>;
+        using Index = Vector2D<long long int>;
         using Position = Vector2D<long long int>;
     }
 }

@@ -14,7 +14,7 @@ int Game::Engine::execute() {
 int Game::Engine::initialize() {
     sf::RenderWindow& window = m_manager.getWindow();
 
-    window.create(sf::VideoMode(800, 600), "Game of Life", sf::Style::Close);
+    window.create(sf::VideoMode(600, 600), "Game of Life", sf::Style::Close);
     window.setKeyRepeatEnabled(false);
     m_manager.setScene(std::make_unique<Scenes::GameScene>(m_manager));
 
