@@ -107,5 +107,5 @@ void Game::Scenes::GameScene::nextGeneration() {
         }
     }
 
-    m_field = nextField;
+    m_field = std::move(nextField);
 }
