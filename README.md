@@ -5,7 +5,7 @@
 Usage: game-of-life [options]
 
 Options:
-  --help                            Print help.
+  -h [ --help ]                     Print help.
   -x [ --field-x ] arg (=300)       Set the field size on the X-axis.
   -y [ --field-y ] arg (=300)       Set the field size on the Y-axis.
   -w [ --window-width ] arg (=600)  Set the window width.
