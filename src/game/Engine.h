@@ -14,8 +14,8 @@ namespace Game {
         Engine& operator=(Engine&&) = delete;
         ~Engine() = default;
 
-        virtual int initialize();
-        int execute();
+        virtual int initialize(int argc, char** argv);
+        int execute(int argc, char** argv);
 
     protected:
         Gui::WindowManager m_manager;

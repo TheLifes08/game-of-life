@@ -9,7 +9,7 @@ namespace Game {
     namespace Scenes {
         class GameScene : public Game::Gui::Scene {
         public:
-            explicit GameScene(Gui::WindowManager& manager);
+            explicit GameScene(Gui::WindowManager& manager, size_t fieldX, size_t fieldY);
 
             void onEvent(const sf::Event& event) override;
             void onUpdate(const sf::Time& elapsedTime) override;
@@ -19,6 +19,7 @@ namespace Game {
             void nextGeneration();
 
             Common::Field m_field;
+            bool m_pause;
         };
     }
 }

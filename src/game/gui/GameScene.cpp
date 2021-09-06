@@ -1,8 +1,9 @@
 #include "GameScene.h"
 #include "WindowManager.h"
+#include <random>
 
-Game::Scenes::GameScene::GameScene(Game::Gui::WindowManager &manager)
-: Scene(manager), m_field({216, 294}) {
+Game::Scenes::GameScene::GameScene(Game::Gui::WindowManager &manager, size_t fieldX, size_t fieldY)
+: Scene(manager), m_field({fieldX, fieldY}), m_pause(false) {
     auto createPlaner = [this](long long x, long long y) {
         m_field.get({x - 1, y + 1}).state = Common::Cell::ALIVE;
         m_field.get({x, y + 1}).state = Common::Cell::ALIVE;
@@ -26,11 +27,24 @@ Game::Scenes::GameScene::GameScene(Game::Gui::WindowManager &manager)
         }
     };
 
-    loadFromFile("../resources/map.png");
+    // loadFromFile("../resources/map.png");
+
+    std::random_device rd;
+
+    for (long long y = 0; y < m_field.size().y; ++y) {
+        for (long long x = 0; x < m_field.size().x; ++x) {
+            bool isAlive = rd() % 2 == 1;
+            m_field.get({x - 1, y + 1}).state = (isAlive)? Common::Cell::ALIVE : Common::Cell::DEAD;
+        }
+    }
 }
 
 void Game::Scenes::GameScene::onEvent(const sf::Event& event) {
-
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::P) {
+            m_pause = !m_pause;
+        }
+    }
 }
 
 void Game::Scenes::GameScene::onUpdate(const sf::Time& elapsedTime) {
@@ -40,8 +54,11 @@ void Game::Scenes::GameScene::onUpdate(const sf::Time& elapsedTime) {
 
     if (frameTime > 0.1) {
         frameTime = 0.0;
-        drawField();
-        nextGeneration();
+
+        if (!m_pause) {
+            drawField();
+            nextGeneration();
+        }
     }
 }
 
