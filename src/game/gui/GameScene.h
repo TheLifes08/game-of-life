@@ -13,12 +13,14 @@ namespace Game {
 
             void onEvent(const sf::Event& event) override;
             void onUpdate(const sf::Time& elapsedTime) override;
+            void setSpeed(double value);
 
         private:
             void drawField();
             void nextGeneration();
 
             Common::Field m_field;
+            double m_speed;
             bool m_pause;
         };
     }

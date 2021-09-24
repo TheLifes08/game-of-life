@@ -19,6 +19,7 @@ int Game::Engine::initialize(int argc, char** argv) {
     sf::RenderWindow& window = m_manager.getWindow();
 
     // Option values
+    double speed = 0.1;
     long long fieldX = 300, fieldY = 300, windowX = 600, windowY = 600;
 
     // Option description
@@ -29,7 +30,7 @@ int Game::Engine::initialize(int argc, char** argv) {
     ("field-y,y", po::value<long long>(&fieldY)->default_value(300), "Set the field size on the Y-axis.")
     ("window-width,w", po::value<long long>(&windowX)->default_value(600), "Set the window width.")
     ("window-height,h", po::value<long long>(&windowY)->default_value(600), "Set the window height.")
-    ;
+    ("speed,s", po::value<double>(&speed)->default_value(0.1), "Set the simulation speed (seconds for 1 frame).");
 
     // Parse command line args
     po::variables_map vm;
@@ -51,7 +52,10 @@ int Game::Engine::initialize(int argc, char** argv) {
 
     window.create(sf::VideoMode(windowX, windowY), "Game of Life", sf::Style::Close);
     window.setKeyRepeatEnabled(false);
-    m_manager.setScene(std::make_unique<Scenes::GameScene>(m_manager, fieldX, fieldY));
+
+    auto scene = std::make_unique<Scenes::GameScene>(m_manager, fieldX, fieldY);
+    scene->setSpeed(speed);
+    m_manager.setScene(std::move(scene));
 
     return 0;
 }

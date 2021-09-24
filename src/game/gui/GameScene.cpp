@@ -3,7 +3,7 @@
 #include <random>
 
 Game::Scenes::GameScene::GameScene(Game::Gui::WindowManager &manager, size_t fieldX, size_t fieldY)
-: Scene(manager), m_field({fieldX, fieldY}), m_pause(false) {
+: Scene(manager), m_field({fieldX, fieldY}), m_speed(0.1), m_pause(false) {
     auto loadFromFile = [this](const std::string& path) {
         sf::Image image;
         image.loadFromFile(path);
@@ -35,6 +35,10 @@ void Game::Scenes::GameScene::onEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::P) {
             m_pause = !m_pause;
+        } else if (event.key.code == sf::Keyboard::Q) {
+            setSpeed(m_speed - 0.01);
+        } else if (event.key.code == sf::Keyboard::E) {
+            setSpeed(m_speed + 0.01);
         }
     }
 }
@@ -44,13 +48,21 @@ void Game::Scenes::GameScene::onUpdate(const sf::Time& elapsedTime) {
 
     frameTime += elapsedTime.asSeconds();
 
-    if (frameTime > 0.1) {
+    if (frameTime > m_speed) {
         frameTime = 0.0;
 
         if (!m_pause) {
             drawField();
             nextGeneration();
         }
+    }
+}
+
+void Game::Scenes::GameScene::setSpeed(double value) {
+    if (value < 0.01) {
+        m_speed = 0.01;
+    } else {
+        m_speed = value;
     }
 }
 
