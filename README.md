@@ -10,6 +10,7 @@ Options:
   -y [ --field-y ] arg (=300)       Set the field size on the Y-axis.
   -w [ --window-width ] arg (=600)  Set the window width.
   -h [ --window-height ] arg (=600) Set the window height.
+  -s [ --speed ] arg (=0.1)         Set the simulation speed (seconds for 1 frame).
 ```
 
 ### Rules
