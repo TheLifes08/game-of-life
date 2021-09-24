@@ -1,5 +1,10 @@
 # game-of-life
 
+### Required libraries
+
+* Boost
+* SFML
+
 ### Usage
 ```plain
 Usage: game-of-life [options]
