@@ -3,7 +3,7 @@
 ### Required libraries
 
 * Boost
-* SFML
+* SFML == 2.5
 
 ### Usage
 ```plain
